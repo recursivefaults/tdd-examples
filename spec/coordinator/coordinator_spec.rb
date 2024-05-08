@@ -1,4 +1,6 @@
 class SomeWorker
+  def do_work
+  end
 end
 
 describe "An example with a class that only coordinates" do
