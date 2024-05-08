@@ -14,6 +14,8 @@
 #
 # At the end I have tests to prove my wrapper works and tests to prove my code works, so now I need one small test to
 # prove they work together, and so I wrote my one integration test.
+require 'database/database'
+require 'database/class_using_database'
 
 describe "An example using a database" do
   context "These tests started with testing against a Live(SomeDB) and then refactored out to a test double for speed and control" do
