@@ -1,3 +1,5 @@
+class SomeWorker
+end
 
 describe "An example with a class that only coordinates" do
   it "should have a class that calls a coordination method" do
