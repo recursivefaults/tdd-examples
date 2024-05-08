@@ -1,4 +1,12 @@
-class CoordinatorA
+
+
+class Coordinator
+  def coordinate
+    raise "Not Implemented"
+  end
+end
+
+class CoordinatorA < Coordinator
   attr_reader :was_called
   def initialize
     @was_called = false
@@ -9,13 +17,13 @@ class CoordinatorA
   end
 end
 
-class Logger
+class Logger < Coordinator
   attr_reader :was_called
   def initialize
     @was_called = false
   end
 
-  def log
+  def coordinate
     @was_called = true
   end
 end
@@ -28,7 +36,7 @@ class SomeWorker
 
   def do_work
     @coordinator.coordinate()
-    @logger.log()
+    @logger.coordinate()
   end
 end
 
