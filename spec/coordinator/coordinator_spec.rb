@@ -1,5 +1,17 @@
 
 
+class Orchestrator
+  def initialize(coordinator, logger)
+    @coordinator = coordinator
+    @logger = logger
+  end
+
+  def orchestrate
+    @coordinator.coordinate()
+    @logger.coordinate()
+  end
+end
+
 class Coordinator
   def coordinate
     raise "Not Implemented"
@@ -29,22 +41,22 @@ class Logger < Coordinator
 end
 
 class SomeWorker
-  def initialize(coordinator, logger)
-    @coordinator = coordinator
-    @logger = logger
+  def initialize(orchestrator)
+    @orchestrator = orchestrator
   end
 
   def do_work
-    @coordinator.coordinate()
-    @logger.coordinate()
+    @orchestrator.orchestrate()
   end
 end
 
 describe "An example with a class that only coordinates" do
+
   it "should use other objects to coordinate" do
     some_coordinator = CoordinatorA.new
     some_logger = Logger.new
-    worker = SomeWorker.new(some_coordinator, some_logger)
+    orchestrator = Orchestrator.new(some_coordinator, some_logger)
+    worker = SomeWorker.new(orchestrator)
     did_work = worker.do_work
     expect(some_coordinator.was_called).to eq(true)
   end
@@ -52,9 +64,11 @@ describe "An example with a class that only coordinates" do
   it "should log things when it does work" do
     some_coordinator = CoordinatorA.new
     some_logger = Logger.new
-    worker = SomeWorker.new(some_coordinator, some_logger)
+    orchestrator = Orchestrator.new(some_coordinator, some_logger)
+    worker = SomeWorker.new(orchestrator)
     did_work = worker.do_work
     expect(some_logger.was_called).to eq(true)
   end
   
 end
+
