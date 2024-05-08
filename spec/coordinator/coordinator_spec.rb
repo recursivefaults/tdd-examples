@@ -1,5 +1,6 @@
 class SomeWorker
   def do_work
+    false
   end
 end
 
