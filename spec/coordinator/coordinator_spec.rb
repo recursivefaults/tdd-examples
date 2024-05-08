@@ -1,16 +1,5 @@
-
-
-class Orchestrator
-  def initialize(coordinator, logger)
-    @coordinator = coordinator
-    @logger = logger
-  end
-
-  def orchestrate
-    @coordinator.coordinate()
-    @logger.coordinate()
-  end
-end
+require 'coordination/worker'
+require 'coordination/orchestration'
 
 class TestOrchestrator < Orchestrator
   attr_reader :was_called
@@ -20,44 +9,6 @@ class TestOrchestrator < Orchestrator
 
   def orchestrate
     @was_called = true
-  end
-end
-
-class Coordinator
-  def coordinate
-    raise "Not Implemented"
-  end
-end
-
-class CoordinatorA < Coordinator
-  attr_reader :was_called
-  def initialize
-    @was_called = false
-  end
-
-  def coordinate
-    @was_called = true
-  end
-end
-
-class Logger < Coordinator
-  attr_reader :was_called
-  def initialize
-    @was_called = false
-  end
-
-  def coordinate
-    @was_called = true
-  end
-end
-
-class SomeWorker
-  def initialize(orchestrator)
-    @orchestrator = orchestrator
-  end
-
-  def do_work
-    @orchestrator.orchestrate()
   end
 end
 
